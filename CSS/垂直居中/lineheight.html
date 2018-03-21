@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>lineheight</title>
+    <style>
+        .out-box {
+            height: 500px;
+            width: 500px;
+            border: 1px solid pink;
+            
+            /* 核心代码 */
+            line-height: 500px;
+            text-align: center;
+        }
+
+        .in-box {
+            height: 100px;
+            width: 100px;
+            background-color: royalblue;
+
+            /* 核心代码 */
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="out-box">
+        <div class="in-box"></div>
+    </div>
+    <p>
+        注：给父盒子设置行高(行高等于盒子的高度)、设置text-align:center;
+        <strong style="color:red">需要知道父盒子高度设置行高</strong>
+        <br>
+        给子盒子设置display: inline-block; vertical-align: middle; line-height: initial;
+    </p>
+</body>
+</html>

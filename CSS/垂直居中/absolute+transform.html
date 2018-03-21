@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>absolut+transform</title>
+    <style>
+        .out-box {
+            height: 500px;
+            width: 500px;
+            border: 1px solid pink;
+
+            /* 核心代码 */
+            position: relative;
+        }
+
+        .in-box {
+            height: 100px;
+            width: 100px;
+            background-color: royalblue;
+
+            /* 核心代码 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .mark {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="out-box">
+        <div class="in-box"></div>
+    </div>
+    <p class="mark">
+        注：给父盒子设置position: relative;
+        <strong style="color:red"> 类似于 absolut-margin 方式，需要知道父元素宽高。</strong>
+        <br> 给子盒子设置 position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    </p>
+</body>
+
+</html>

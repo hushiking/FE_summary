@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>判断group分组是否有空</title>
+</head>
+<body>
+    <script>
+        var a = [
+            {
+                name: 'a',
+                display_name: 'a'
+            },
+            {
+                group_name: 'a',
+                children: []
+            }
+        ]
+        var b = [
+            {
+                group_name: 'b',
+                children: [
+                    {
+                        group_name: 'b',
+                        children: [
+                            {
+                                group_name: 'b',
+                                children: []
+                            },
+                            {
+                                name: 'b',
+                                display_name: 'b'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+        var c = [
+            {
+                group_name: 'b',
+                children: [
+                    {
+                        group_name: 'b',
+                        children: [
+                            {
+                                group_name: 'b',
+                                children: []
+                            }
+                        ]
+                    }
+                ],
+                group_name: 'b',
+                children: [
+                    {
+                        group_name: 'b',
+                        children: [
+                            {
+                                group_name: 'b',
+                                children: []
+                            }
+                        ]
+                    }
+                ],
+            }
+        ]
+        var d = [
+            { 
+                group_name: 'd',
+                children: []
+            },
+            {
+                name: 'd',
+                display_name: 'd'
+            },
+            {
+                group_name: 'd',
+                children: [
+                    {
+                        group_name: 'd',
+                        children: []
+                    }
+                ]
+            },
+            {
+                group_name: 'd',
+                children: [
+                    {
+                        group_name: 'd',
+                        children: []
+                    },
+                    {
+                        name: 'd',
+                        display_name: 'd'
+                    },
+                    {
+                        group_name: 'd',
+                        children: [
+                            {
+                                group_name: 'd',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+
+        // 判断 group 是否为空
+        function isNotEmpty(list) {
+            return list.some((v) => {
+                if (v.name) {
+                    return true
+                }
+                if (v.children) {
+                   return isNotEmpty(v.children)
+                }
+            })
+        }
+
+        console.log(isNotEmpty(a), isNotEmpty(b), isNotEmpty(c), isNotEmpty(d))
+
+        // 删除group为空的项, 最后结果可能为空数组
+        function whileObj(arr) {
+            let i = arr.length
+            while (i--) {
+                if (arr[i].children && arr[i].children.length === 0) {
+                    arr.splice(i, 1)
+                    continue
+                }
+                if (arr[i].children && arr[i].children.length > 0) {
+                    if (!isNotEmpty(arr[i].children)) {
+                        arr.splice(i, 1)
+                        continue
+                    }
+                }
+            }
+        }
+
+        whileObj(d)
+        console.log(d)
+        whileObj(c)
+        console.log(c)
+    </script>
+</body>
+</html>

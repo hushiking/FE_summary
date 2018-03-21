@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>float+relative-margin+absolute</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 普通块级元素水平方向会自动伸展，直到包含它的元素的边界，竖直方向与相邻元素依次排列，不能并排，独占一行 */
+        /* 浮动不在标准流中，宽度不再自动伸展，根据内容而定 */
+
+        .left {
+            float: left;
+            width: 200px;
+            background: cornflowerblue;
+        }
+
+        /* 相对定位没有脱离标准流，后面的盒子仍以标准流方式排列 */
+
+        .center {
+            position: relative;
+            margin: 0 200px;
+            background: coral;
+        }
+
+        .right {
+            width: 200px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: blanchedalmond;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="left"> 左侧定宽</div>
+        <div class="center">中间自适应</div>
+        <div class="right">右侧定宽</div>
+    </div>
+</body>
+
+</html>

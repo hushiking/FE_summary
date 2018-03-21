@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>padding撑开高度</title>
+    <style>
+        /* 那么我们是不是能用一个子元素撑开 content 部分的高度，从而使 max-height 属性生效呢？我们来试试： */
+
+        /* 这里就涉及到margin collapse的概念了，由于容器与伪元素在垂直方向发生了外边距折叠，所以我们想象中的撑开父元素高度并没有出现。而应对的方法是在父元素上触发 BFC： */
+
+        /* 注：若使用垂直方向上的 padding 撑开父元素，则不需要触发 BFC */
+
+        .child {
+            width: 100%;
+            max-height: 200px;
+            background: blueviolet;
+            overflow: auto;
+        }
+
+        .child::after {
+            content: '';
+            display: block;
+            margin-top: 100%;
+            /* padding-top: 100%; */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="child">
+        </div>
+    </div>
+</body>
+
+</html>

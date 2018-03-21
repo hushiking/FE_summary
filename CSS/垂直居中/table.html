@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>table</title>
+    <style>
+        .out-box {
+            height: 500px;
+            width: 500px;
+            border: 1px solid pink;
+
+            /* 核心代码 */
+            text-align: center;
+        }
+
+        .in-box {
+            height: 100px;
+            width: 100px;
+            background-color: royalblue;
+
+            /* 核心代码 */
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .mark {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table>
+        <tbody>
+            <tr>
+                <td class="out-box">
+                    <div class="in-box"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <p class="mark">
+        注：给td父盒子设置text-align: center;
+        <strong style="color:red">不需要知道父元素具体宽高，注意行内块元素默认基线对齐，需要设置 vertical-align 等于 middle.</strong>
+        <br> 给子盒子设置 display: inline-block;
+    </p>
+</body>
+
+</html>

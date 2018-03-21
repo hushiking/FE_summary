@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>writing-mode</title>
+    <style>
+        .box {
+            height: 500px;
+            width: 500px;
+            border: 1px solid pink;
+
+            /* 核心代码 */
+            writing-mode: vertical-lr;
+            text-align: center;
+        }
+
+        .out-box {
+            /* 核心代码 */
+            writing-mode: horizontal-tb;
+            display: inline-block;
+            text-align: center;
+            width: 100%;
+        }
+
+        .in-box {
+            height: 100px;
+            width: 100px;
+            background-color: royalblue;
+
+            /* 核心代码 */
+            /* 利用文字 inline-block 居中对齐的方式，此处 margin: 0 auto; 也能达到水平居中效果 */
+            display: inline-block;
+        }
+
+        .mark {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="out-box">
+            <div class="in-box"></div>
+        </div>
+    </div>
+
+    <p class="mark">
+        注：http://www.zhangxinxu.com/wordpress/2016/04/css-writing-mode/
+    </p>
+</body>
+
+</html>

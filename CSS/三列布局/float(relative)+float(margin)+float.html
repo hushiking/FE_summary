@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>float-relative+float-margin-margin+float</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 浮动是为了后面元素按顺序排列，相对定位是为了显示在上层 */
+
+        .left {
+            float: left;
+            width: 200px;
+            background: rebeccapurple;
+            position: relative;
+        }
+
+        /* 浮动是为了依次排列，负的外边距覆盖了左侧元素 */
+
+        .center-fix {
+            float: left;
+            margin: 0 -200px;
+            width: 100%;
+            background: pink;
+        }
+
+        /* 外边距是为了与左侧元素隔离 */
+
+        .center {
+            margin: 0 200px;
+        }
+
+        /* 浮动是为了依次排列 */
+
+        .right {
+            float: left;
+            width: 200px;
+            background: palegoldenrod;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="left">
+            <p>左侧定宽</p>
+        </div>
+        <div class="center-fix">
+            <div class="center">
+                <p>中间自适应</p>
+            </div>
+        </div>
+        <div class="right">
+            <p>右侧定宽</p>
+        </div>
+    </div>
+</body>
+
+</html>
