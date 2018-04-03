@@ -1,8 +1,9 @@
+// 
 function Person(age) {
     this.age = age;
-    this.printAge = function() {
-        console.log(this.age);
-    }
+    // this.printAge = function() {
+    //     console.log(this.age);
+    // }
 }
 
 Person.prototype.age = 30;

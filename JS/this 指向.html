@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>this 指向</title>
+</head>
+
+<body>
+    <script>
+        var name = 'fe'
+        var departments = {
+            name: 'dev',
+            getName: function () {
+                return `${name}-${this.name}`
+            },
+            pro: {
+                name: 'pro',
+                getName: () => {
+                    return `${name}-${this.name}`
+                }
+            }
+        }
+
+        var getName = departments.getName
+        var pro = departments.pro
+        console.log(this)
+        console.log(getName())
+        console.log(departments.getName())
+        console.log(departments.pro.getName())
+        console.log(pro.getName())
+    </script>
+    <script>
+        window.val = 1;
+        var obj = {
+            val: 2,
+            dbl: function () {
+                console.log(val)
+                this.val *= 2;
+                console.log(val)
+                val *= 2;
+                console.log(val);
+                console.log(this.val);
+            }
+        };
+        // 说出下面的输出结果
+        obj.dbl(); // 2, 4
+        var func = obj.dbl;
+        func(); // 8 8
+    </script>
+</body>
+
+</html>
