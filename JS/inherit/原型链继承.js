@@ -7,6 +7,7 @@ SuperType.prototype.getSuperValue = function() {
     console.log('===', this)
     return this.property
 }
+SuperType.sign = '超类'
 
 function SubType() {
     this.subproperty = false
@@ -19,6 +20,7 @@ SubType.prototype.getSubValue = function() {
 }
 
 var p = new SuperType()
+console.log('SubType:', SubType.sign) // 超类的静态属性无法继承
 console.log('p.getSuperValue:', p.getSuperValue())
 
 var instance = new SubType()

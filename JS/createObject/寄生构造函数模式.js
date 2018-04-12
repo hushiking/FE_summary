@@ -9,12 +9,18 @@ function Person(name, age, job) {
         console.log('this:', this);
         console.log('name:', this.name)
     }
-    console.log('全局 this 指向:', this)
+    console.log('内部 this 指向:', this)
     return o
 }
 
 var person1 = new Person('tom', 23, 'software engineer')
-person1.sayName()
+person1.sayName() // 内部 this 指向: Person {}
+/*
+this: { name: 'tom',
+  age: 23,  job: 'software engineer',
+  sayName: [Function] }
+name: tom
+*/
 
 // 这个模式可以在特殊的情况下用来为对象创建构造函数。例如我们想创建一个具有额外方法的特殊数组。由于不能直接修改 Array 构造函数，因此可以使用这种模式
 function SpecialArray() {
@@ -31,4 +37,4 @@ function SpecialArray() {
 }
 
 var colors = new SpecialArray('red', 'green', 'blue')
-console.log(colors.toPipedString())
+console.log(colors.toPipedString()) // red|green|blue

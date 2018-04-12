@@ -1,6 +1,7 @@
 // 也叫做伪造对象或经典继承
 // 函数只不过是在特定环境中执行代码的对象
 // 优点：每个实例都会具有自己的 colors 属性的副本；可以向超类型构造函数传递参数
+// 缺点：无法共享方法
 function SuperType(name) {
     this.name = name
     this.colors = ['red', 'green', 'blue']

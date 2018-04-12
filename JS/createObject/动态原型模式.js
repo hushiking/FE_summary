@@ -14,4 +14,4 @@ function Person(name, age, job) {
 }
 
 var person1 = new Person('tom', 23, 'software engineer')
-person1.sayName()
+person1.sayName() // tom

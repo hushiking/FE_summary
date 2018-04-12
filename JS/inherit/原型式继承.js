@@ -16,11 +16,11 @@ person1.friends.push('gay')
 var person2 = object(person)
 person2.friends.push('debang')
 
-console.log('person.friends:', person.friends)
-console.log('person1.friends:', person1.friends)
-console.log('person2.friends:', person2.friends)
-console.log('person1.name:', person1.name)
-console.log('person2.name:', person2.name)
+console.log('person.friends:', person.friends) // [ 'jerry', 'cuqi', 'darus', 'gay', 'debang' ]
+console.log('person1.friends:', person1.friends) // [ 'jerry', 'cuqi', 'darus', 'gay', 'debang' ]
+console.log('person2.friends:', person2.friends) // [ 'jerry', 'cuqi', 'darus', 'gay', 'debang' ]
+console.log('person1.name:', person1.name) // tom
+console.log('person2.name:', person2.name) // tom
 
 // ES5通过新增 Object.create()方法规范化了原型式继承
 // 问题：原型式继承包含引用类型值的属性始终会共享相应的值

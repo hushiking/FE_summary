@@ -1,4 +1,4 @@
-// 
+// 属性搜索原则先查找自身，再查找原型链
 function Person(age) {
     this.age = age;
     // this.printAge = function() {

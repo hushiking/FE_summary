@@ -12,7 +12,7 @@ function createPerson(name, age, job) {
     return o
 }
 
-var person1 = createPerson('tom', 23, 'software engineer')
-var person2 = createPerson('jerry', 20, 'doctor')
-person1.sayName()
-person2.sayName()
+var person1 = createPerson('tom', 23, 'software engineer') // 普通函数调用，this指向 global
+var person2 = createPerson('jerry', 20, 'doctor') // 普通函数调用，this指向 global
+person1.sayName() // name: tom
+person2.sayName() // name: jerry

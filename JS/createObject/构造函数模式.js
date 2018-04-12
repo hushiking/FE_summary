@@ -11,5 +11,5 @@ function Person(name, age, job) {
 
 var person1 = new Person('tom', 23, 'software engineer')
 var person2 = new Person('jerry', 20, 'doctor')
-person1.sayName()
-person2.sayName()
+person1.sayName() // name: tom
+person2.sayName() // name: jerry

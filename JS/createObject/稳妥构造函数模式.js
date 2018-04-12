@@ -19,6 +19,6 @@ function Person(name, age, job) {
 
 // 变量 person1 中保存的是一个稳妥对象，除了调用 sayName() 方法外，没有别的方式可以访问其数据成员。不可能有别的方法访问传入到构造函数中的原始数据！！
 var person1 = Person('tom', 23, 'software engineer')
-person1.sayName()
+person1.sayName() // sayHi: function sayHi() { console.log('hi...') } name: tom
 
 // 与寄生构造函数模式类似，该模式创建的对象与构造函数之间也没有什么关系，因此 instanceof 操作符对这种对象也没有意义。

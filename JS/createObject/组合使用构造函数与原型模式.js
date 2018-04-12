@@ -16,7 +16,7 @@ var person1 = new Person('tom', 23, 'software engineer')
 var person2 = new Person('jerry', 20, 'doctor')
 
 person1.friends.push('darus')
-console.log('person1.friends:', person1.friends)
-console.log('person2.friends:', person2.friends)
-console.log(person1.friends === person2.friends)
-console.log(person1.sayName === person2.sayName)
+console.log('person1.friends:', person1.friends) // [ 'tom', 'jerry', 'cuqi', 'darus' ]
+console.log('person2.friends:', person2.friends) // [ 'tom', 'jerry', 'cuqi' ]
+console.log(person1.friends === person2.friends) // false
+console.log(person1.sayName === person2.sayName) // true
