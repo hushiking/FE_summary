@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+</head>
+<body>
+</body>
+<script>
+	// bar(); // 报错，不往下执行
+	alert(typeof bar + '>>>line2'); // undefined
+	var foo = function bar(name) { // 命名函数不提升
+		console.log('hello' + name);
+		console.log(bar);
+	};
+	alert(typeof bar + '>>>line7'); // undefined
+	foo('world'); // helloworld function bar(name) {函数体}
+	console.log(foo.toString());
+	console.log(bar); // 报错
+	bar(); //报错
+</script>
+</html>

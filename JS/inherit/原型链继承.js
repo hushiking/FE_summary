@@ -13,7 +13,7 @@ function SubType() {
     this.subproperty = false
 }
 // 原型链继承
-SubType.prototype = new SuperType() // 此方法以超类型的实例对象为原型对象，不急继承了超类型的属性和方法。而且该实例对象又包含一个指向构造该对象的构造函数的原型对象
+SubType.prototype = new SuperType() // 此方法以超类型的实例对象为原型对象，不仅继承了超类型的属性和方法。而且该实例对象又包含一个指向构造该对象的构造函数的原型对象
 // SubType.prototype = SuperType.prototype // 此方法只继承了原型对象上面的方法，无法继承超类型的属性和方法
 SubType.prototype.getSubValue = function() {
     return this.subproperty
