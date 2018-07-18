@@ -9,18 +9,24 @@
 </head>
 <body>
 <!-- 以下为三个简单的form表单 -->
+<!-- document.forms可以得到页面中所有form表单集合，form标签内不能嵌套from标签，否则不显示 -->
 <!-- 测试发现可以直接使用document.form1,等价于document.forms["form1"] -->
-<!-- 包含name属性的元素可以使用document.name.name一级一级地找寻到,如果name相同会返回数组,如果包含 id 属性，以 id 属性为主 -->
-<form action="x" name="form1" > 
-<input type="text" name="username" value="zhangsan" /> 
-<input type="text" name="address" value="beijing" /> 
+<!-- 包含name属性的元素可以使用document.name.name一级一级地找寻到,如果name相同会返回伪数组,如果包含 id 属性，伪数组中包含该项 -->
+<form action="x" name="form1"> 
+<input id="username" type="text" name="username" value="zhangsan" /> 
+<input id="address" type="text" name="address" value="beijing" /> 
 </form> 
  
-<form action="x" id="myForm" name="form2" > 
+<form action="x" name="form2"> 
 </form> 
  
-<form action="x" name="form2" >
+<form action="x" name="form2" id="unique">
+	<input type="text" name="age" value="20">
 	<form action="y" name="form3"></form>
-</form>    
+</form>
+
+<div>
+	<form id="myForm" action="x" name="form4"></form>
+</div>
 </body>
 </html>
