@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>底部固定</title>
+    <style>
+        html {
+            box-sizing: border-box;
+        }
+
+        *,
+        *::after,
+        *::before {
+            margin: 0;
+            box-sizing: inherit;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #content {
+            flex: 1;
+        }
+
+        #footer {
+            line-height: 30px;
+            text-align: center;
+        }
+
+        .placeholder {
+            height: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content">
+        <button>Increase page height</button>
+        <div class="placeholder">Placeholder</div>
+        <div class="placeholder">Placeholder</div>
+    </div>
+    <div id="footer">&copy; Brook.inc 2010-2016</div>
+    <script>
+        document.querySelector('button').onclick = function () {
+            var placeholder = document.querySelector('.placeholder').cloneNode(true);
+            console.log(placeholder);
+            document.querySelector('#content').appendChild(placeholder);
+        }
+    </script>
+</body>
+
+</html>
