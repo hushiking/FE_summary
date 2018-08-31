@@ -7,6 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>z-index</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
         span {
             display: inline-block;
             background-color: red;
@@ -26,6 +31,13 @@
             z-index: -5;
         }
 
+        div {
+            position: relative;
+            left: 200px;
+            height: 100px;
+            background-color: bisque;
+        }
+
         .mark {
             position: fixed;
             bottom: 200px;
@@ -38,7 +50,9 @@
     <span></span>
     <span id="box_relative"></span>
     <span></span>
+    <div></div>
     <p class="mark">
+        <em>relative定位并没有脱离文档流，仍然占着原来的位置，如果元素是块级元素，会自动伸展到宽度与父元素相同，再加上left偏移，浏览器会出现横向滚动条</em>
         <strong>z-index只跟脱离文档流的元素比较，普通文档流的元素 z-index 固定为0，不能手动修改。定位后的元素脱离文档流之后 z-index 必须设置为负数才能被普通文档流覆盖</strong>
     </p>
 </body>

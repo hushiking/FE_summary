@@ -48,6 +48,13 @@ yarn-error.log*
 }
 ```
 
+## WePy 一些坑
+
+1. 如果data数据是对象，改变对象的属性值无法触发重新渲染，必须给对象重新赋值（即改变对象存储的内存地址），页面才会重新渲染
+2. Wepy使用this.xx = xx更新数据，如果每次更新的数据值没有发生变化，则页面不重新渲染
+3. 卸载页面时（即onUnload方法中）修改数据，需要使用`this.$apply()`让它立即改变
+4. 异步函数内部，一定要使用`this.$apply()`立即改变修改值，在回调函数中也要使用`this.$apply()`立即赋值
+
 ## 微信开发者工具
 
 点击右侧双箭头选择详情，修改项目设置，设置基础调试库为 `1.9.1`，不勾选 ES6 转 ES5 与 启用自定义处理命令；勾选上传代码时样式自动补全，上传代码时自动压缩，不校验合法域名、web-view（业务域名）、TLS 版本以及 HTTPS 证书以及启用多核心编译
@@ -348,7 +355,7 @@ handleTouchend(e) {
         url: `/pages/team_comment_page/index?id=${this.card_id}`
     })
     ```
-    team_comment_page 页面
+    team_comment_page 页面，在跳转完页面的`onLoad(options)`方法的`options`参数中可以获取上个页面传过来的参数
     ```js
     <script>
     import wepy from 'wepy'
