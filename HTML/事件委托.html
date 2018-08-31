@@ -1,0 +1,176 @@
+<html>
+
+<head>
+    <script type="text/javascript">
+        function fn() {
+            var aa = document.getElementById('ul1')
+            console.error(aa)
+        }
+        fn()
+
+        window.onload = function () {
+            /* var oBtn = document.getElementById("btn");
+            var oUl = document.getElementById("ul1");
+            // var aLi = oUl.getElementsByTagName('li');
+            var aLi = oUl.querySelectorAll('li');
+            var num = 4;
+
+            //鼠标移入变红，移出变白
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].onmouseover = function () {
+                    this.style.background = 'red';
+                };
+                aLi[i].onmouseout = function () {
+                    this.style.background = '#fff';
+                }
+            }
+            //添加新节点
+            oBtn.onclick = function () {
+                num++;
+                var oLi = document.createElement('li');
+                oLi.innerHTML = 111 * num;
+                oUl.appendChild(oLi);
+            }; */
+
+
+
+            /* var oBtn = document.getElementById("btn");
+            var oUl = document.getElementById("ul1");
+            var aLi = oUl.getElementsByTagName('li');
+            // var aLi = oUl.querySelectorAll('li'); // 无法动态更新文档
+            var num = 4;
+
+            function mHover() {
+                //鼠标移入变红，移出变白
+                for (var i = 0; i < aLi.length; i++) {
+                    aLi[i].onmouseover = function () {
+                        this.style.background = 'red';
+                    };
+                    aLi[i].onmouseout = function () {
+                        this.style.background = '#fff';
+                    }
+                }
+            }
+            mHover();
+            //添加新节点
+            oBtn.onclick = function () {
+                num++;
+                var oLi = document.createElement('li');
+                oLi.innerHTML = 111 * num;
+                oUl.appendChild(oLi);
+                mHover();
+            }; */
+
+
+
+            /* var oBtn = document.getElementById("btn");
+            var oUl = document.getElementById("ul1");
+            var aLi = oUl.querySelectorAll('li');
+            var num = 4;
+
+            //事件委托，添加的子元素也有事件
+            oUl.onmouseover = function (ev) {
+                var ev = ev || window.event;
+                var target = ev.target || ev.srcElement;
+                if (target.nodeName.toLowerCase() == 'li') {
+                    target.style.background = "red";
+                }
+
+            };
+            oUl.onmouseout = function (ev) {
+                var ev = ev || window.event;
+                var target = ev.target || ev.srcElement;
+                if (target.nodeName.toLowerCase() == 'li') {
+                    target.style.background = "#fff";
+                }
+
+            };
+
+            //添加新节点
+            oBtn.onclick = function () {
+                num++;
+                var oLi = document.createElement('li');
+                oLi.innerHTML = 111 * num;
+                oUl.appendChild(oLi);
+            }; */
+
+
+
+            var oBtn = document.getElementById("btn");
+            var oUl = document.getElementById("ul1");
+            var aLi = oUl.querySelectorAll('li');
+            var num = 4;
+
+            function bindEvent(elem, type, selector, fn) {
+                if (fn == null) {
+                    fn = selector;
+                    selector = null;
+                }
+                elem.addEventListener(type, function (e) {
+                    if (selector) {
+                        var target = e.target;
+                        if (target.matches(selector)) {
+                            fn.call(target, e);
+                        }
+                    } else {
+                        fn(e);
+                    }
+                })
+            }
+
+            bindEvent(oUl, 'mouseover', 'li', function () {
+                this.style.background = 'red';
+            })
+            bindEvent(oUl, 'mouseout', 'li', function () {
+                this.style.background = '#fff';
+            })
+            bindEvent(oBtn, 'mouseenter', function (e) {
+                console.log(this)
+                oBtn.style.color = 'cyan';
+            })
+            bindEvent(oBtn, 'mouseleave', function (e) {
+                console.log(window.event);
+                oBtn.style.color = '#000';
+            })
+
+            //添加新节点
+            oBtn.onclick = function () {
+                num++;
+                var oLi = document.createElement('li');
+                oLi.innerHTML = 111 * num;
+                oUl.appendChild(oLi);
+            };
+        }
+
+        function ready(fn) {
+            if (document.addEventListener) {		//标准浏览器
+                document.addEventListener('DOMContentLoaded', function () {
+                    //注销时间，避免重复触发
+                    document.removeEventListener('DOMContentLoaded', arguments.callee, false);
+                    fn();		//运行函数
+                }, false);
+            } else if (document.attachEvent) {		//IE浏览器
+                document.attachEvent('onreadystatechange', function () {
+                    if (document.readyState == 'complete') {
+                        document.detachEvent('onreadystatechange', arguments.callee);
+                        fn();		//函数运行
+                    }
+                });
+            }
+        }
+        ready(fn)
+
+    </script>
+</head>
+
+<body>
+    <input type="button" name="" id="btn" value="添加" style="color:red;" />
+    <ul id="ul1">
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+        <li>444</li>
+    </ul>
+</body>
+
+</html>

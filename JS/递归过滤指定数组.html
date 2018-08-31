@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var sObjects = [
+            {
+                group_name: '华西',
+                children: []
+            },
+            {
+                group_name: '中南',
+                children: [
+                    {
+                        group_name: '湖南',
+                        children: [
+                            {
+                                group_name: '长沙',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                group_name: '中国',
+                children: [
+                    {
+                        name: 'huabei',
+                        display_name: '华北'
+                    },
+                    {
+                        group_name: '华中',
+                        children: [
+                            {
+                                name: 'Account',
+                                display_name: '客户'
+                            },
+                            {
+                                group_name: '河南',
+                                children: [
+                                    {
+                                        name: 'Leads',
+                                        display_name: '线索'
+                                    },
+                                    {
+                                        group_name: '信阳',
+                                        children: [
+                                            {
+                                                name: 'luoshan',
+                                                display_name: '罗山'
+                                            },
+                                            {
+                                                name: 'huangchuan',
+                                                display_name: '潢川'
+                                            },
+                                            {
+                                                group_name: '光山',
+                                                children: [
+
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Account',
+                        display_name: '客户'
+                    }
+                ]
+            },
+            {
+                group_name: '西北',
+                children: [
+                    {
+                        name: 'Contact',
+                        display_name: '联系人'
+                    },
+                    {
+                        group_name: '甘肃',
+                        children: [
+                            {
+                                display_name: '联系人',
+                                name: 'Contact'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                group_name: '华南',
+                children: []
+            },
+            {
+                group_name: '华东',
+                children: [
+                    {
+                        name: 'Opportunity',
+                        display_name: '商机'
+                    },
+                    {
+                        group_name: '浙江',
+                        children: [
+                            {
+                                group_name: '杭州',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                display_name: '充值订单',
+                name: 'Recharge'
+            },
+            {
+                display_name: '回款计划',
+                name: 'Pay'
+            },
+            {
+                display_name: '退款订单',
+                name: 'Refund'
+            },
+            {
+                display_name: '发票',
+                name: 'Invoice'
+            },
+            {
+                group_name: '东北',
+                children: [
+                    {
+                        group_name: '辽宁',
+                        children: [
+                            {
+                                group_name: '沈阳',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // for循环递归
+        function filterArray(arr) {
+            for (let i = 0, l = arr.length; i < l; i++) {
+                if (arr[i].name && arr[i].name === 'huangchuan' || arr[i].name === 'luoshan' || arr[i].name === 'Leads') {
+                    arr.splice(i--, 1)
+                    l--
+                    continue
+                }
+                /* if (arr[i].children && arr[i].children.length === 0) {
+                    arr.splice(i--, 1)
+                    l--
+                    continue
+                } */
+                if (arr[i].children && arr[i].children.length > 0) {
+                    filterArray(arr[i].children)
+                }
+            }
+        }
+
+        // 改写为while循环递归,并根据 name 过滤
+        function whileArray(arr) {
+            let i = arr.length
+            while (i--) {
+                if (arr[i].name && arr[i].name === 'huangchuan' || arr[i].name === 'luoshan') {
+                    arr.splice(i, 1)
+                    continue
+                }
+                /* if (arr[i].children && arr[i].children.length === 0) {
+                    arr.splice(i, 1)
+                    continue
+                } */
+                if (arr[i].children && arr[i].children.length > 0) {
+                    whileArray(arr[i].children)
+                }
+            }
+        }
+
+        whileArray(sObjects)
+        console.log(sObjects)
+    </script>
+</body>
+</html>

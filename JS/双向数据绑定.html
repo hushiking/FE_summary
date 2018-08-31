@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>订单管理</title>
+</head>
+
+<body>
+
+    <input id="inputDom" type="text" style="width:100px;height:40px;border:1px solid red" name="" value="">
+    <div id="bandleDom">
+
+    </div>
+</body>
+
+</html>
+<script>
+    var obj = {
+        // _name: ''
+    }
+    document.querySelector('#inputDom').onkeyup = function (e) {
+        var _ele = e.target
+        var inputVal = _ele.value
+        console.log(inputVal)
+        obj.name = inputVal
+    }
+    for (key in obj) {
+        console.log(key)
+    }
+    Object.defineProperty(obj, 'name', {
+        get() {
+            // return this._name
+        },
+        set(newVal) {
+            this._name = newVal
+            document.querySelector('#bandleDom').innerHTML = newVal
+        }
+    })
+</script>

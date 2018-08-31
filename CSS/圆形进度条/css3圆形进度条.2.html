@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas圆形进度条</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="200" height="200"></canvas>
+    <canvas id="cvs" width="500px" height="500px"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas')
+        var process = 10
+        var context = canvas.getContext('2d')
+        // 画外圆
+        context.beginPath()
+        context.arc(100, 100, 80, 0, Math.PI * 2)
+        context.closePath()
+        context.fillStyle = "#666"
+        context.fill()
+        drawCircle(context, process)
+
+        function drawCircle(ctx, percent) {
+            // 进度环
+            ctx.beginPath()
+            ctx.moveTo(100, 100)
+            ctx.arc(100, 100, 80, Math.PI * 1.5, Math.PI * (1.5 + 2 * percent /100))
+            ctx.fillStyle = 'red'
+            ctx.fill()
+
+            // 内圆
+            ctx.beginPath()
+            ctx.arc(100, 100, 75, 0, Math.PI * 2)
+            ctx.closePath()
+            ctx.fillStyle = 'white'
+            ctx.fill()
+
+            // 填充文字
+            ctx.font = 'bold 30px microsoft yahei'
+            ctx.fillStyle = 'black'
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+            // ctx.moveTo(100, 100)
+            ctx.fillText(process + '%', 100, 100)
+        }
+
+        var cvs = document.getElementById('cvs')
+        var ctx = cvs.getContext('2d')
+        ctx.beginPath()
+        // 提前定好圆心
+        ctx.moveTo(100, 100)
+        ctx.arc(100, 100, 80, Math.PI * 1.5, Math.PI * 1.8)
+        ctx.fillStyle = 'red'
+        ctx.fill()
+
+        ctx.moveTo(0, 0)
+        ctx.lineTo(300, 500)
+        ctx.strokeStyle = 'blue'
+        ctx.stroke()
+
+    </script>
+</body>
+
+</html>

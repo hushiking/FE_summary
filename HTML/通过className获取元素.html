@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #diva {
+            background: cornflowerblue;
+        }
+
+        .divb {
+            background: yellowgreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="diva">
+        <div class="divb">
+            <span>woshi</span>
+        </div>
+        <div class="divb">
+            <a href="#">hahaha</a>
+        </div>
+        <div>
+            this is div
+            <p>paragraph</p>
+            <ul>
+                <li>number1</li>
+                <li>number2</li>
+                <li>number3</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        function getByClassName(obj, cls) {
+            // obj 目标元素，cls 要获取元素的 class 名
+            var element = obj.getElementsByTagName('*');
+            var result = [];
+            for (var i = 0; i < element.length; i++) {
+                if (element[i].className === cls) {
+                    result.push(element[i]);
+                }
+            }
+            return result;
+        }
+        var a = document.getElementById('diva')
+        var result = getByClassName(a, 'divb')
+        console.log(result, typeof result, result.toString())
+
+
+
+        var textArr = new Array();
+        function search(elem) {
+            var nodeList = elem.childNodes;
+            for (var i = 0; i < nodeList.length; i++) {
+                if (nodeList[i].nodeType == Node.TEXT_NODE && nodeList[i].nodeValue.trim() !== '') {
+                    textArr.push({ [nodeList[i].nodeName]: nodeList[i].nodeValue });
+                } else if (nodeList[i].nodeType == Node.ELEMENT_NODE) {
+                    search(nodeList[i])
+                }
+            }
+        }
+        search(document.body);
+        console.log(textArr);
+    </script>
+</body>
+
+</html>

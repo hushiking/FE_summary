@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/immutable/dist/immutable.min.js"></script>
+</head>
+
+<body>
+    <script>
+        var d = [
+            { 
+                group_name: 'd',
+                children: []
+            },
+            {
+                name: 'd',
+                display_name: 'd'
+            },
+            {
+                group_name: 'd',
+                children: [
+                    {
+                        group_name: 'd',
+                        children: []
+                    }
+                ]
+            },
+            {
+                group_name: 'd',
+                children: [
+                    {
+                        group_name: 'd',
+                        children: []
+                    },
+                    {
+                        name: 'd',
+                        display_name: 'd'
+                    },
+                    {
+                        group_name: 'd',
+                        children: [
+                            {
+                                group_name: 'd',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+
+        // 判断group分组是否为空
+        function isEmptyGroup(arr, flag) {
+            for (let i = 0, l = arr.length; i < l; i++) {
+                if (arr[i].name) {
+                    flag.bool = false
+                }
+                if (arr[i].children) {
+                    isEmptyGroup(arr[i].children, flag)
+                }
+            }
+        }
+
+        function whileArray(arr) {
+            let i = arr.length
+            while (i--) {
+                let flag = {bool: true}
+                if (arr[i].children && arr[i].children.length === 0) {
+                    arr.splice(i, 1)
+                    continue
+                }
+                if (arr[i].children && arr[i].children.length > 0) {
+                    isEmptyGroup(arr[i].children, flag)
+                    if (flag.bool) {
+                        arr.splice(i, 1)
+                        continue
+                    }
+                }
+            }
+        }
+        // whileArray(d)
+        // console.log(d)
+
+        // console.log(isEmptyGroup(d, flag),flag)
+
+        function isImmutableEmptyGroup(list, abc) {
+            for (let i = 0, l = list.size; i < l; i++) {
+                if (list.getIn([i, 'name'])) {
+                    console.log('name进来了')
+                    abc.bool = false
+                }
+                if (list.getIn([i, 'children'])) {
+                    console.log('xxxxxxx', list.getIn([i, 'children']))
+                    isImmutableEmptyGroup(list.getIn([i, 'children']), abc);
+                }
+            }
+        }
+        let abc = {bool: true}
+        console.log(isImmutableEmptyGroup(Immutable.fromJS(d), abc))
+        console.log(abc)
+
+        // 判断 group 是否为空
+        function isNotEmpty(list) {
+            return list.some((v) => {
+                if (v.name) {
+                    return true
+                }
+                if (v.children) {
+                   return isNotEmpty(v.children)
+                }
+            })
+        }
+        // immutable
+        function isNot(list) {
+            return list.some((v) => {
+                if (v.get('name')) {
+                    return true
+                }
+                if (v.get('children')) {
+                    return isNot(v.get('children'))
+                }
+            })
+        }
+
+        var a = [
+            {
+                name: 'a',
+                display_name: 'a'
+            },
+            {
+                group_name: 'a',
+                children: []
+            }
+        ]
+        var b = [
+            {
+                group_name: 'b',
+                children: [
+                    {
+                        group_name: 'b',
+                        children: [
+                            {
+                                group_name: 'b',
+                                children: []
+                            },
+                            {
+                                name: 'b',
+                                display_name: 'b'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+        var c = [
+            {
+                group_name: 'b',
+                children: [
+                    {
+                        group_name: 'b',
+                        children: [
+                            {
+                                group_name: 'b',
+                                children: []
+                            }
+                        ]
+                    }
+                ],
+                group_name: 'b',
+                children: [
+                    {
+                        group_name: 'b',
+                        children: [
+                            {
+                                group_name: 'b',
+                                children: []
+                            }
+                        ]
+                    }
+                ],
+            }
+        ]
+        console.log(isNotEmpty(a), isNotEmpty(b), isNotEmpty(c), isNotEmpty(d))
+        console.log(isNot(Immutable.fromJS(a)), isNot(Immutable.fromJS(b)), isNot(Immutable.fromJS(c)), isNot(Immutable.fromJS(d)))
+
+        function whileObj(arr) {
+            let i = arr.length
+            while (i--) {
+                if (arr[i].children && arr[i].children.length === 0) {
+                    arr.splice(i, 1)
+                    continue
+                }
+                if (arr[i].children && arr[i].children.length > 0) {
+                    if (!isNot(Immutable.fromJS(arr[i].children))) {
+                        arr.splice(i, 1)
+                        continue
+                    }
+                }
+            }
+        }
+        whileObj(d)
+        console.log(d)
+        whileObj(c)
+        console.log(c)
+    </script>
+</body>
+
+</html>

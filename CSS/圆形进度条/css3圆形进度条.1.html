@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>小圆形进度条</title>
+    <style>
+        .spinner {
+            margin: auto;
+            font-size: 50px;
+            width: 1em;
+            height: 1em;
+            border-radius: 50%;
+            box-shadow: inset 0 0 0 .1em rgba(58, 168, 237, .2);
+        }
+        /* 第一层从0deg向180deg旋转 */
+        .spinner i {
+            position: absolute;
+            clip: rect(0, 1em, 1em, .5em);
+            width: 1em;
+            height: 1em;
+            animation: spinner-circle-clipper 1s ease-in-out infinite;
+        }
+
+        @keyframes spinner-circle-clipper {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(180deg);
+            }
+        }
+        /* 第二层从-180deg向180deg旋转 */
+        .spinner i:after {
+            position: absolute;
+            clip: rect(0, 1em, 1em, .5em);
+            width: 1em;
+            height: 1em;
+            content: '';
+            animation: spinner-circle 1s ease-in-out infinite;
+            border-radius: 50%;
+            box-shadow: inset 0 0 0 .1em #3aa8ed;
+        }
+
+        @keyframes spinner-circle {
+            0% {
+                transform: rotate(-180deg);
+            }
+
+            100% {
+                transform: rotate(180deg);
+            }
+        }
+
+
+        .circleProgress_wrapper {
+            width: 200px;
+            height: 200px;
+            margin: 50px auto;
+            position: relative;
+            border: 1px solid #ddd;
+        }
+
+        .wrapper {
+            width: 100px;
+            height: 200px;
+            position: absolute;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .right {
+            right: 0;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .circleProgress {
+            width: 160px;
+            height: 160px;
+            border: 20px solid rgb(232, 232, 12);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            transform: rotate(45deg)
+        }
+
+        .rightcircle {
+            border-top: 20px solid green;
+            border-right: 20px solid green;
+            right: 0;
+            animation: circleProgressLoad_right 5s linear infinite;
+        }
+
+        .leftcircle {
+            border-bottom: 20px solid green;
+            border-left: 20px solid green;
+            left: 0;
+            animation: circleProgressLoad_left 5s linear infinite;
+        }
+
+        @keyframes circleProgressLoad_right {
+            0% {
+                border-top: 20px solid #ED1A1A;
+                border-right: 20px solid #ED1A1A;
+                transform: rotate(45deg);
+            }
+            50% {
+                border-top: 20px solid rgb(232, 232, 12);
+                border-right: 20px solid rgb(232, 232, 12);
+                border-left: 20px solid rgb(81, 197, 81);
+                border-bottom: 20px solid rgb(81, 197, 81);
+                transform: rotate(225deg);
+            }
+            100% {
+                border-left: 20px solid green;
+                border-bottom: 20px solid green;
+                transform: rotate(225deg);
+            }
+        }
+
+        @keyframes circleProgressLoad_left {
+            0% {
+                border-bottom: 20px solid #ED1A1A;
+                border-left: 20px solid #ED1A1A;
+            }
+            50% {
+                border-bottom: 20px solid rgb(232, 232, 12);
+                border-left: 20px solid rgb(232, 232, 12);
+                border-top: 20px solid rgb(81, 197, 81);
+                border-right: 20px solid rgb(81, 197, 81);
+                transform: rotate(45deg);
+            }
+            100% {
+                border-top: 20px solid green;
+                border-right: 20px solid green;
+                border-bottom: 20px solid green;
+                border-left: 20px solid green;
+                transform: rotate(225deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="spinner">
+        <i></i>
+    </div>
+    <div class="circleProgress_wrapper">
+        <div class="wrapper right">
+            <div class="circleProgress rightcircle"></div>
+        </div>
+        <div class="wrapper left">
+            <div class="circleProgress leftcircle"></div>
+        </div>
+    </div>
+</body>
+
+</html>

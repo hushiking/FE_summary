@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./node_modules/immutable/dist/immutable.min.js"></script>
+    <script src="./node_modules/lodash/lodash.min.js"></script>
+</head>
+
+<body>
+    <script>
+        var sObjects = [
+            {
+                group_name: '华西',
+                children: []
+            },
+            {
+                group_name: '中南',
+                children: [
+                    {
+                        group_name: '湖南',
+                        children: [
+                            {
+                                group_name: '长沙',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                group_name: '中国',
+                children: [
+                    {
+                        name: 'huabei',
+                        display_name: '华北'
+                    },
+                    {
+                        group_name: '华中',
+                        children: [
+                            {
+                                name: 'Account',
+                                display_name: '客户'
+                            },
+                            {
+                                group_name: '河南',
+                                children: [
+                                    {
+                                        name: 'Leads',
+                                        display_name: '线索'
+                                    },
+                                    {
+                                        group_name: '信阳',
+                                        children: [
+                                            {
+                                                name: 'luoshan',
+                                                display_name: '罗山'
+                                            },
+                                            {
+                                                name: 'huangchuan',
+                                                display_name: '潢川'
+                                            },
+                                            {
+                                                group_name: '光山',
+                                                children: [
+
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Account',
+                        display_name: '客户'
+                    }
+                ]
+            },
+            {
+                group_name: '西北',
+                children: [
+                    {
+                        name: 'Contact',
+                        display_name: '联系人'
+                    },
+                    {
+                        group_name: '甘肃',
+                        children: [
+                            {
+                                display_name: '联系人',
+                                name: 'Contact'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                group_name: '华南',
+                children: []
+            },
+            {
+                group_name: '华东',
+                children: [
+                    {
+                        name: 'Opportunity',
+                        display_name: '商机'
+                    },
+                    {
+                        group_name: '浙江',
+                        children: [
+                            {
+                                group_name: '杭州',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                display_name: '充值订单',
+                name: 'Recharge'
+            },
+            {
+                display_name: '回款计划',
+                name: 'Pay'
+            },
+            {
+                display_name: '退款订单',
+                name: 'Refund'
+            },
+            {
+                display_name: '发票',
+                name: 'Invoice'
+            },
+            {
+                group_name: '东北',
+                children: [
+                    {
+                        group_name: '辽宁',
+                        children: [
+                            {
+                                group_name: '沈阳',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // for循环递归（注意数组塌陷）
+        function filterArray(arr) {
+            for (let i = 0, l = arr.length; i < l; i++) {
+                if (arr[i].name && arr[i].name === 'huangchuan' || arr[i].name === 'luoshan' || arr[i].name === 'Leads') {
+                    arr.splice(i--, 1)
+                    l--
+                    continue
+                }
+                if (arr[i].children && arr[i].children.length === 0) {
+                    arr.splice(i--, 1)
+                    l--
+                    continue
+                }
+                if (arr[i].children && arr[i].children.length > 0) {
+                    filterArray(arr[i].children)
+                }
+            }
+        }
+        // while循环(函数式编程：纯粹的函数式编程语言编写的函数没有变量，因此，任意一个函数，只要输入是确定的，输出就是确定的，这种纯函数我们称之为没有副作用)
+        function whileArray(arr) {
+            let i = arr.length
+            let legalArr = _.cloneDeep(arr)
+            while (i--) {
+                if (legalArr[i].name && legalArr[i].name === 'huangchuan' || legalArr[i].name === 'luoshan') {
+                    legalArr.splice(i, 1)
+                    continue
+                }
+                if (legalArr[i].children && legalArr[i].children.length > 0) {
+                    whileArray(legalArr[i].children)
+                }
+            }
+            return legalArr
+        }
+        var legalArr = whileArray(sObjects)
+        console.log('legalArr>>>', legalArr)
+
+        // 去除首层空数组
+        function filterEmptyGroup(arr) {
+            let i = arr.length
+            let notEmptyArr = _.cloneDeep(arr)
+            while (i--) {
+                if (notEmptyArr[i].children && notEmptyArr[i].children.length === 0) {
+                    notEmptyArr.splice(i, 1)
+                    continue
+                }
+                if (notEmptyArr[i].children && notEmptyArr[i].children.length > 0) {
+                    whileArray(notEmptyArr[i].children)
+                }
+            }
+            return notEmptyArr
+        }
+        var array = filterEmptyGroup(legalArr)
+        console.log('emptyArray>>>', array)
+
+        var a = [
+            {
+                name: 'a',
+                display_name: 'a'
+            },
+            {
+                group_name: 'a',
+                children: []
+            }
+        ]
+        var b = [
+            {
+                group_name: 'b',
+                children: [
+                    {
+                        group_name: 'b',
+                        children: [
+                            {
+                                group_name: 'b',
+                                children: []
+                            },
+                            {
+                                name: 'b',
+                                display_name: 'b'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+        var c = [
+            {
+                group_name: 'b',
+                children: [
+                    {
+                        group_name: 'b',
+                        children: [
+                            {
+                                group_name: 'b',
+                                children: []
+                            }
+                        ]
+                    }
+                ],
+                group_name: 'b',
+                children: [
+                    {
+                        group_name: 'b',
+                        children: [
+                            {
+                                group_name: 'b',
+                                children: []
+                            }
+                        ]
+                    }
+                ],
+            }
+        ]
+        var d = [
+            {
+                group_name: 'd',
+                children: []
+            },
+            {
+                name: 'd',
+                display_name: 'd'
+            }
+        ]
+        // 判断group分组是否为空(可以改写为immutable)
+        function isEmptyGroup(arr, flag) {
+            for (let i = 0, l = arr.length; i < l; i++) {
+                if (arr[i].name) {
+                    flag.bool = false
+                }
+                if (arr[i].children) {
+                    return isEmptyGroup(arr[i].children, flag)
+                }
+            }
+        }
+        function isNotEmpty(arr) {
+            return arr.some(v => {
+                if (v.name) {
+                    return true
+                }
+                if (v.children) {
+                    return isNotEmpty(v.children)
+                }
+            })
+        }
+        let flag = { bool: true }
+        console.log(isEmptyGroup(a, flag), flag)
+        console.log('====', isNotEmpty(a))
+        console.log('====', isNotEmpty(b))
+        console.log('====', isNotEmpty(c))
+        console.log('====', isNotEmpty(d))
+
+        function isImmutableEmptyGroup(list, abc) {
+            for (let i = 0, l = list.size; i < l; i++) {
+                if (list.getIn([i, 'name'])) {
+                    abc.bool = false
+                }
+                if (list.getIn([i, 'children'])) {
+                    isImmutableEmptyGroup(list.getIn([i, 'children']), abc);
+                }
+            }
+        }
+        let abc = { bool: true }
+        c = Immutable.fromJS(c)
+        console.log(isImmutableEmptyGroup(c, abc), abc)
+
+        sObjects = Immutable.fromJS(sObjects).getIn([2, 'children']) // 相当于 Immutable.fromJS(sObjects).get(0).get('children')
+        console.log(sObjects.toJS())
+        function isActive(list, currentPath) {
+            return _.some(list, (v) => {
+                if (v.children && v.children.length > 0) {
+                    return isActive(v.children, currentPath);
+                }
+                if (v.name && `/sObject/${v.name}` === currentPath) {
+                    return true;
+                }
+            });
+        }
+        console.log(isActive(sObjects.toJS(), '/sObject/Leads'))
+
+        function isActiveTab(list, currentPath) {
+            return list.some((v) => {
+                console.log(v.get('name'))
+                if (v.get('children') && v.get('children').size > 0) {
+                    return isActiveTab(v.get('children'), currentPath)
+                }
+                console.log(currentPath)
+                if (v.get('name') && `/sObject/${v.get('name')}` === currentPath) {
+                    console.log('name进来了')
+                    return true
+                }
+            })
+        }
+        console.log(isActiveTab(sObjects, '/sObject/Leads'))
+    </script>
+</body>
+
+</html>

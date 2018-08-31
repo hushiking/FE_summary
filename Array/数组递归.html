@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./node_modules/lodash/lodash.min.js"></script>
+    <script>
+        var sObjects = [
+            {
+                group_name: '华西',
+                children: []
+            },
+            {
+                group_name: '中南',
+                children: [
+                    {
+                        group_name: '湖南',
+                        children: [
+                            {
+                                group_name: '长沙',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                group_name: '中国',
+                children: [
+                    {
+                        name: 'huabei',
+                        display_name: '华北'
+                    },
+                    {
+                        group_name: '华中',
+                        children: [
+                            {
+                                name: 'Account',
+                                display_name: '客户'
+                            },
+                            {
+                                group_name: '河南',
+                                children: [
+                                    {
+                                        name: 'Leads',
+                                        display_name: '线索'
+                                    },
+                                    {
+                                        group_name: '信阳',
+                                        children: [
+                                            {
+                                                name: 'luoshan',
+                                                display_name: '罗山'
+                                            },
+                                            {
+                                                name: 'huangchuan',
+                                                display_name: '潢川'
+                                            },
+                                            {
+                                                group_name: '光山',
+                                                children: [
+
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Account',
+                        display_name: '客户'
+                    }
+                ]
+            },
+            {
+                group_name: '西北',
+                children: [
+                    {
+                        name: 'Contact',
+                        display_name: '联系人'
+                    },
+                    {
+                        group_name: '甘肃',
+                        children: [
+                            {
+                                display_name: '联系人',
+                                name: 'Contact'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                group_name: '华南',
+                children: []
+            },
+            {
+                group_name: '华东',
+                children: [
+                    {
+                        name: 'Opportunity',
+                        display_name: '商机'
+                    },
+                    {
+                        group_name: '浙江',
+                        children: [
+                            {
+                                group_name: '杭州',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                display_name: '充值订单',
+                name: 'Recharge'
+            },
+            {
+                display_name: '回款计划',
+                name: 'Pay'
+            },
+            {
+                display_name: '退款订单',
+                name: 'Refund'
+            },
+            {
+                display_name: '发票',
+                name: 'Invoice'
+            },
+            {
+                group_name: '东北',
+                children: [
+                    {
+                        group_name: '辽宁',
+                        children: [
+                            {
+                                group_name: '沈阳',
+                                children: []
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+        var legalObjects = {
+            huangchuan: ' 潢川',
+            luoshan: ' 罗山',
+            guangshan: '光山'
+        }
+        function filterArray(objs, legalObjs) {
+            let result = [];
+            let loop = (tree) => {
+                for (let i = 0; i < tree.length; i++) {
+                    let pointer = tree[i];
+                    if (pointer.children) {
+                        pointer.children = loop(pointer.children)
+                    } else if (legalObjs[pointer.name]) {
+                        tree[i] = {};
+                    }
+                }
+                return tree;
+            }
+            result = loop(_.cloneDeep(objs));
+            return result;
+        }
+        var objs = filterArray(sObjects, legalObjects);
+        console.log(objs);
+
+
+
+        function filterEmpty(objs) {
+            let result = [];
+            let loop = (tree) => {
+                // 初次遍历去掉空对象
+                let temp = _.filter(tree, v => Object.keys(v).length);
+                // 递归遍历去掉 children 中的空对象
+                for (let i = 0; i < temp.length; i++) {
+                    let pointer = temp[i];
+                    if (pointer.children) {
+                        if (pointer.children && pointer.children.length === 0) {
+                            temp[i] = {};
+                        }
+                        let children = loop(pointer.children);
+                    }
+                }
+                return temp;
+            }
+            result = _.filter(loop(_.cloneDeep(objs)), v => Object.keys(v).length);
+            return result;
+        }
+
+        var lastObjs = filterEmpty(objs);
+        console.log(lastObjs);
+    </script>
+</body>
+</html>
