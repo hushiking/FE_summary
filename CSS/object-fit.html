@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>object-fit与object-position</title>
+    <style>
+        .bg-img1 {
+            width: 200px;
+            height: 200px;
+            background-image: url("https://i.postimg.cc/gjkJjmVv/image.jpg");
+            background-repeat: no-repeat;
+            background-position: 0px 0px;
+            background-size: 200px 200px;
+            /* 背景图固定定位后，已浏览器窗口左上角为基准位置。background-position确定位置 */
+            background-attachment: fixed;
+            background-color: rgba(0, 0, 0, .3);
+        }
+
+        .bg-img2 {
+            width: 200px;
+            height: 200px;
+            padding: 50px;
+            border: 10px solid rgba(0, 0, 0, .1);
+            background: rgba(0, 0, 0, .3) url("https://i.postimg.cc/FKysx7Gy/image.jpg") center no-repeat;
+            background-size: contain;
+            /* 背景被裁剪到什么盒子（边框盒子、内边距盒子、内容盒子） */
+            background-clip: content-box;
+            /* 规定 background-position 属性相对于什么位置来定位。如果背景图像的 background-attachment 属性为 "fixed"，则该属性没有效果。 */
+            background-origin: border-box;
+            /* box-sizing: border-box; */
+        }
+
+        .img-1 {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            background-color: rgba(0, 0, 0, .3);
+        }
+
+        .img-2 {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            object-position: right bottom;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>1.使用背景图显示正方形效果</h3>
+    <div class="bg-img1"></div>
+    <br>
+    <div class="bg-img2"></div>
+    <h3>2.img标签显示正方形效果</h3>
+    <img src="https://i.postimg.cc/gjkJjmVv/image.jpg" class="img-1">
+    <br>
+    <img src="https://i.postimg.cc/FKysx7Gy/image.jpg" class="img-2">
+</body>
+
+</html>

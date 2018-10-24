@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /* setInterval(function() {
+            console.log(1)
+        }, 1000) */
+
+        // 每隔一秒输出一个数
+        for (var i = 0; i < 5; i++) {
+            // 每个i都处于独立作用域，不会覆盖
+            (function (i) {
+                setTimeout(function () {
+                    console.log(i)
+                }, 1000 * (i + 1))
+            })(i)
+        }
+
+        for (var i = 0; i < 5; i++) {
+            setTimeout((function (i) {
+                return function () {
+                    console.log(i)
+                }
+            }(i)), 1000 * (i + 1))
+        }
+
+        for (var i = 0; i < 5; i++) {
+            // 第一个参数需要函数才能在指定时间运行，否则直接运行
+            setTimeout((function (i) {
+                console.log(i)
+            }(i)), 1000 * (i + 1))
+        }
+
+        var add = (function () {
+            var count = 0
+            return function () {
+                count++
+                console.log(count)
+            }
+        }())
+        for (var i = 0; i < 5; i++) {
+            add()
+        }
+    </script>
+</body>
+
+</html>
