@@ -48,12 +48,39 @@ yarn-error.log*
 }
 ```
 
-## WePy的一些坑
+## 小程序的一些坑
+
+1. 小程序首次展示的页面应该设置变量名，防止第一次进入闪烁，例如：
+    ```html
+    <block wx:if=“{{isShow}}”>
+        <view>页面</view>
+    </block>
+    <block wx:else>
+        <loading />
+    </block>
+    ```
+2. 小程序button按钮边框去不掉，尝试设置`button::after{border:none}`
+3. slider组件的`bindchanging`函数，不停拖拽会出现bug，使用`bindchang`代替
+4. 页面引入一张长图，使用 `mode=widthFix` 模式，底部有空白，需给父元素设置 `display: flex` 属性
+5. 手机端跳转页面会保留原有页面的数据，再次进来不会丢失，pc端如果是redirect，relauch离开页面再回来数据会丢失
+6. 手机隐藏或卸载页面需要有选择地卸载一些动画函数；小程序父盒子flex布局，子盒子flex: 1可能不生效，因为这个盒子自身没有设置display:flex，可能是与定位冲突
+7. iphone6手机中，如果一个父盒子有两个子盒子，其中一个定高，另一个盒子设置百分比高度，会超出父盒子高度，但是其他手机不会超出，最多等于父盒子的剩余高度
+8. iphone6手机中，父盒子flex布局，一个子盒子定高，另一个子盒子设置flex:1，其内部添加scroll-view组件设置高度100%不起作用，无法滚动，必须给固定高度
+
+## 小程序音频相关api的一些坑
+
+1. 当前正在播放其他音频，此时切换页面内的另一条音频，会先触发前一个音频的`onStop`方法，再触发点击音频的`onPlay`方法
+2. PC端与iphone端音频自然结束之后仍会触发一次`onTimeUpdate`函数，所以要清空这个函数，在`onPlay`方法中重新定义该函数
+3. PC端音频暂停音频，然后手动停止时仍会触发一次`onTimeUpdate`函数，所以要清空这个函数，然后重新定义
+4. `wx.seekBackgroundAudio({postion: time})`在手机上无法跳转至指定进度，改为使用`audio.seek(time)`
+
+## WePY的一些坑
 
 1. 如果data数据是对象，改变对象的属性值无法触发重新渲染，必须给对象重新赋值（即改变对象存储的内存地址），页面才会重新渲染
 2. Wepy使用this.xx = xx更新数据，如果每次更新的数据值没有发生变化，则页面不重新渲染
 3. 卸载页面时（即onUnload方法中）修改数据，需要使用`this.$apply()`让它立即改变
 4. 异步函数内部，一定要使用`this.$apply()`立即改变修改值，在回调函数中也要使用`this.$apply()`立即赋值
+5. Wepy挂载全局数据使用`this.$parent.globalData`(组件)或者`this.$parent.$parent.globalData`(页面)
 
 ## 设置微信开发者工具
 
