@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>flex头部定高，底部充满</title>
+    <style>
+        html, body {
+            height: 100%;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        div {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        header {
+            height: 45px;
+            background-color: bisque;
+        }
+        /* 小程序里面，如果想充满底部，footer需要加上display: flex; */
+        /* 小程序iphone6 flex1不生效 */
+        footer {
+            flex: 1;
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <header></header>
+        <footer></footer>
+    </div>
+</body>
+</html>
