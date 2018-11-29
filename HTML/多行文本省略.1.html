@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多行文本省略显示</title>
+    <style>
+        .wrap {
+            width: 866px;
+            height: 170px;
+            /* line-height: 20px; */
+            overflow: hidden;
+        }
+
+        .wrap .text {
+            float: right;
+            margin-left: -5px;
+            width: 100%;
+            word-break: break-all;
+        }
+
+        .wrap::before {
+            float: left;
+            width: 5px;
+            content: '';
+            height: 170px;
+        }
+
+        .wrap::after {
+            float: right;
+            content: "...";
+            height: 16px;
+            line-height: 16px;
+            padding-right: 5px;
+            text-align: right;
+            width: 3em;
+            margin-left: -3em;
+            position: relative;
+            left: 100%;
+            top: -20px;
+            padding-right: 5px;
+            /* 显示更好的效果 */
+            background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
+            background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+            background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+            background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="text">[标题必读] 无伤亡人 [暂停一秒读正文] 重庆丽景园林绿化工程有限公司成立于2003年，坐落于位于渝北区民安大道（重庆市老干部活动中心内），距重庆火车北站2公里、重庆国际机场15公里、江北观音桥繁华商业区4公里，毗邻北部新区、民政局等单位，地势平坦，交通方便，环境优美。
+            重庆丽景园林绿化工程有限公司是一家集城市园林绿化、规划、设计、施工、养护、绿化装饰和土方施工为一体的绿化专业公司，具有三级绿化施工资质，注册资本200万元，并拥有中高级专业技术人员18名、中高级技工56名。公司园林绿化施工、养护专用设备齐全，并拥有上百亩苗木生产基地，能够承担大型复杂的园林绿化工程。
+            伴随我国经济的不断发展，人们对于生活质量的追求越来越高，对于居住环境的要求也在不断提升。就目前的科技发展而言，越来越多的工艺手段被应用到了园林绿化当中，一些新开发出来的材料与管理技术逐渐被人们引入到园林绿化当中。一般，园林工程主要指的是人们通过使用一些工程技术来对园林进行建设、改造，使其更加具有艺术性，也就是通常所说的园林景观建造。进一步来说，园林工程是在一定的区域范围内使用一些已有的艺术手段或者观察技术等来对园林当中的山水</div>
+    </div>
+</body>
+
+</html>
