@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>伪元素</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        a.before:nth-child(1)::after {
+            content: "❎";
+        }
+
+        a.after:nth-child(2)::after {
+            content: "("attr(href)")";
+        }
+
+        h1 {
+            counter-reset: section;
+        }
+
+        h1::after {
+            content: url(./images/book.jpg);
+        }
+
+        h2 {
+            counter-reset: chapter;
+        }
+
+        h2::before {
+            counter-increment: section;
+            content: "Section "counter(section) ". ";
+        }
+
+        h3::before {
+            counter-increment: chapter;
+            content: counter(section) "."counter(chapter);
+        }
+
+        /* .clearfix {
+            *zoom: 1;
+        }
+        .clearfix::after {
+            display: table;
+            content: "";
+            width: 0;
+            clear: both;
+        } */
+        .clearfix {
+            overflow: auto;
+            _height: 1%;
+        }
+
+        li {
+            float: left;
+        }
+
+        blockquote {
+            position: absolute;
+            z-index: -1;
+            color: #DDD;
+            font-size: 120px;
+            font-family: serif;
+            font-weight: bolder;
+        }
+
+        blockquote::before,
+        blockquote::after {
+            content: open-quote;
+            /* position: absolute;
+            z-index: -1;
+            color: #DDD;
+            font-size: 120px;
+            font-family: serif;
+            font-weight: bolder; */
+        }
+
+        blockquote::after {
+            content: close-quote;
+        }
+
+        .a_group {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .link {
+            display: inline-block;
+            position: relative;
+            padding: 5px 10px;
+            font-size: 32px;
+            text-decoration: none;
+            color: #000;
+            outline: none;
+        }
+
+        .link::before,
+        .link::after {
+            position: absolute;
+            transition: all .9s;
+            opacity: 0;
+        }
+
+        .link::before {
+            content: "\5B";
+            left: 0;
+        }
+
+        .link::after {
+            content: "\5D";
+            right: 0;
+        }
+
+        /* 伪类hover会继承之前的css属性 */
+        .link:hover::before,
+        .link:hover::after {
+            /* position: absolute; */
+            opacity: 1;
+        }
+
+        .link:hover::before {
+            /* content: "\5B"; */
+            left: -20px;
+        }
+
+        .link:hover::after {
+            /* content: "\5D"; */
+            right: -20px;
+        }
+
+        /* .link {
+            display: inline-block;
+            position: relative;
+            padding: 0px 10px;
+            font-size: 32px;
+            text-decoration: none;
+            color: #000;
+            outline: none;
+        } */
+
+        /* 大框 */
+        /* .link:hover::before,
+        .link:hover::after {
+            display: block;
+            position: absolute;
+            top: -15%;
+            left: -14%;
+            width: 120%;
+            height: 120%;
+            border: 4px solid #DDD;
+            content: "";
+        } */
+
+        /* 小框 */
+        /* .link:hover::after {
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            border-width: 2px;
+        } */
+
+        .mark {
+            position: fixed;
+            bottom: 200px;
+            left: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <a class="before" href="#"></a>
+    <a class="after" href="http://www.baidu.com"></a>
+    <h1>书籍</h1>
+
+    <h2>html tutorials</h2>
+    <h3>xhtml</h3>
+    <h3>css</h3>
+
+    <h2>script tutorials</h2>
+    <h3>js</h3>
+    <h3>vbs</h3>
+
+    <h2>xml turtorials</h2>
+    <h3>xml</h3>
+    <h3>xsl</h3>
+
+    <ul class="clearfix">
+        <li>小老虎1</li>
+        <li>小老虎2</li>
+        <li>小老虎3</li>
+    </ul>
+
+    <blockquote>引用块</blockquote>
+
+    <div class="a_group">
+        <a href="#" class="link">wafture</a>
+        <a href="#" class="link">sumptuous</a>
+    </div>
+
+    <p class="mark">
+        <strong>伪元素特别用法:</strong>
+        <em><a href="http://blog.dimpurr.com/css-before-after/#respond">伪元素</a></em>
+    </p>
+</body>
+
+</html>
