@@ -1,0 +1,203 @@
+@charset "utf-8";
+
+/* CSS Document author: hushiking*/
+* {
+    /* 设置盒模型 */
+    box-sizing: border-box;
+}
+
+body {
+    /* 透明度设置为0，去掉点击链接和文本框对象时默认的灰色半透明覆盖层(iOS)或者虚框(Android) ,此属性加在body或html都可以 */
+    -webkit-tap-highlight-color: transparent;
+    /* 使字体变清晰，仅支持macOS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* 禁止页面文字选择，此属性加在body或者html都可以 */
+    /* -webkit-user-select: none; */
+    /* 禁止文字自动调整大小(默认情况下旋转设备的时候文字大小会发生变化)，此属性也不继承，一般加在body上规定整个body的文字都不会自动调整 */
+    -webkit-text-size-adjust: none;
+    /* ios 触摸并按住触摸目标时候，禁止或显示系统默认菜单，此属性加在body */
+    -webkit-touch-callout: none;
+}
+
+html,
+body,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+th,
+td,
+img,
+a,
+p,
+div,
+pre,
+form,
+input,
+fieldset,
+textarea,
+blockquote,
+h6,
+h5,
+h4,
+h3,
+h2,
+h1,
+section {
+    padding: 0;
+    margin: 0;
+}
+
+address,
+caption,
+cite,
+code,
+dfn,
+em,
+i,
+u,
+b,
+strong,
+th,
+var {
+    font-style: normal;
+    font-weight: normal;
+    /*清除标签默认文本样式和加粗*/
+}
+
+caption,
+th {
+    text-align: left;
+    /*清除标签默认文本居中对齐*/
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+    /*清除标题标签的默认样式*/
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    /*让表格边框细线*/
+    border-spacing: 0;
+    /*清除边框间距*/
+}
+
+textarea {
+    outline: none;
+    border: none;
+    overflow-y: hidden;
+    resize: none;
+}
+
+input {
+    /*1.清除文本框获取焦点时默认的边框阴影*/
+    outline: none;
+    /*2.去除边框*/
+    border: none;
+}
+
+button {
+    /* 消除输入框和按钮的原生外观，在iOS上加上这个属性才能给按钮和输入框自定义样式 ,此属性加在button按钮上。 */
+    -webkit-appearance: none;
+    outline: none;
+    border: none;
+}
+
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #333;
+}
+
+/* 移除HTML5 input在type=”number”时的上下小箭头 */
+
+/* chrome */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.scroll {
+    /* 局部滚动(仅iOS 5以上支持) ,加在需要局部滚动的容器上 */
+    -webkit-overflow-scrolling: touch;
+}
+
+.clearfix::after {
+    content: "";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+    /*IE低版本浏览器不支持after伪类所以要加这一句*/
+}
+
+/*控制第一层容器都是撑满全屏*/
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+/* 媒体查询 */
+html {
+    font-size: 24px;
+}
+
+/* iphone5 */
+@media (min-device-width: 320px) {
+    html {
+        font-size: 26px !important;
+    }
+}
+
+/* iphone 6 */
+@media (min-device-width: 375px) {
+    html {
+        font-size: 28px !important;
+    }
+}
+
+/* iphone 6 plus */
+@media (min-device-width: 414px) {
+    html {
+        font-size: 30px !important;
+    }
+}
+
+/* ipad */
+@media (min-device-width: 768px) {
+    html {
+        font-size: 52px !important;
+    }
+}
