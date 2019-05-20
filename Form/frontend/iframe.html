@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>form表单提交结合iframe无刷新页面提交</title>
+</head>
+
+<body>
+  <!-- 无刷新页面提交 -->
+  <form action="http://localhost:3008/user" method="POST" name="post提交" target="targetIfr">
+    <p>name: <input type="text" name="username"></p>
+    <p>password: <input type="password" name="password"></p>
+    <input type="submit" value="提交">
+  </form>
+  <iframe name="targetIfr" style="display:none"></iframe>
+  <hr>
+  <!-- 通过js 进行表单的提交 存在问题，页面会跳转刷新-->
+  <form action="http://localhost:3008/user" method="POST" name="form" id="jsForm">
+    <p>name: <input type="text" name="username"></p>
+    <p>password: <input type="password" name="password"></p>
+    <p>phone: <input type="number" name="phone"></p>
+    <button id="btn">提交</button>
+  </form>
+  <hr>
+  <!-- FormData -->
+  <form action="http://localhost:3008/file" method="POST" enctype="multipart/form-data">
+    <p>name: <input type="text" name="username"></p>
+    <!-- <p>password: <input type="password" name="password"></p> -->
+    <p><input type="file" name="file"></p>
+    <input type="submit" value="提交">
+  </form>
+  <script>
+    // 通过 js 进行表单的提交存在问题，页面会跳转刷新,添加target="targetIfr"可以实现无刷新页面提交
+    // var btn = document.getElementById('btn')
+    // var jsForm = document.getElementById('jsForm')
+    // btn.onclick = function () {
+    //   jsForm.submit()
+    // }
+  </script>
+  <script>
+    // 策略对象
+    let strategys = {
+      isEmpty: (value, errorMsg) => {
+        if (value === '') {
+          return errorMsg;
+        }
+      },
+      // 限制最小长度
+      minLength: (value, length, errorMsg) => {
+        if (value.length < length) {
+          return errorMsg;
+        }
+      },
+      // 手机号码格式
+      illegalPhone: (value, errorMsg) => {
+        if (!/(^1[3|5|8][0-9]{9}$)/.test(value)) {
+          return errorMsg;
+        }
+      },
+      email(value) {
+        return /^\w+([+-.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)
+      }
+    }
+    class Validator {
+      constructor() {
+        this.cache = [] // 保存校验规则
+      }
+      addRule(dom, rules) {
+        var self = this
+        for (let i = 0, rule; rule = rules[i++];) {
+          let strategyAry = rule.strategy.split(':') // minLength:6 --> ['minLength', 6]
+          let errorMsg = rule.errorMsg // 用户长度不能小于6
+          self.cache.push(function () {
+            let strategy = strategyAry.shift() // 
+            strategyAry.unshift(dom.value) // 把表单值添加到参数列表中
+            strategyAry.push(errorMsg) // 把errorMsg添加到参数列表中 --> ['表单值', 6, errorMsg]
+            return strategys[strategy].apply(dom, strategyAry)
+          })
+        }
+      }
+      check() {
+        for (let i = 0, fn; fn = this.cache[i++];) {
+          let msg = fn(); // 开始校验 并取得校验后的返回信息
+          if (msg) { // 如果有具体返回值说明未通过校验
+            return msg;
+          }
+        }
+      }
+    }
+
+    // 代码调用
+    let form = document.getElementById("jsForm");
+    let validateFunc = function () {
+      let validator = new Validator(); // 实例化Validator
+      //添加一些校验规则
+      validator.addRule(form.username, [{
+          strategy: 'isEmpty',
+          errorMsg: '用户名不能为空'
+        },
+        {
+          strategy: 'minLength:6',
+          errorMsg: '用户名长度不能小于6位'
+        }
+      ]);
+      validator.addRule(form.password, [{
+        strategy: 'minLength:6',
+        errorMsg: '密码长度不能小于6位'
+      }, ]);
+      validator.addRule(form.phone, [{
+        strategy: 'illegalPhone',
+        errorMsg: '手机号格式不正确'
+      }, ]);
+      return validator.check();
+    };
+
+    form.onsubmit = function () {
+      let errorMsg = validateFunc();
+      if (errorMsg) {
+        alert(errorMsg);
+        return false;
+      } else {
+        submit();
+      }
+    }
+  </script>
+</body>
+
+</html>

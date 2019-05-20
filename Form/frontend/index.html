@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>表单提交的几种方式</title>
+</head>
+
+<body>
+  <!-- form 表单post提交，默认会刷新到 action 页面 enter键自动提交 -->
+  <form action="http://localhost:3008/user" method="POST" name="post">
+    <p>name: <input type="text" name="username"></p>
+    <p>password: <input type="password" name="password"></p>
+    <p>phone: <input type="number" name="phone"></p>
+    <input type="submit" value="提交">
+  </form>
+  <hr>
+  <!-- form 表单get 提交, 默认刷新action 页面 -->
+  <form action="http://localhost:3008/user" method="GET" name="get">
+    <p>name: <input type="text" name="username"></p>
+    <p>password: <input type="password" name="password"></p>
+    <p>phone: <input type="number" name="phone"></p>
+    <input type="submit" value="提交">
+  </form>
+</body>
+
+</html>

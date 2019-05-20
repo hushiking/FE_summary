@@ -1,0 +1,15 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "nodejs后端服务,服务于form表单提交",
+  "main": "index.js",
+  "author": "hushiking",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.0",
+    "formidable": "^1.2.1",
+    "jquery": "^3.4.1"
+  }
+}

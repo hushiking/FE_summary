@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JQuery与Ajax表单提交</title>
+  <script src="../backend/node_modules/jquery/dist/jquery.min.js"></script>
+</head>
+<body>
+  <!-- 通过jquery 进行表单的提交存在问题，并阻止页面跳转刷新-->
+  <form action="http://localhost:3008/user" method="POST" name="jqueryForm" id="jqueryForm">
+    <p>name: <input type="text" name="username"></p>
+    <p>password: <input type="password" name="password"></p>
+    <button id="jqbtn">提交</button>
+  </form>
+  <hr>
+  <!-- ajax 请求 -->
+  <form method="POST" name="form">
+    <p>name: <input type="text" name="username"></p>
+    <p>password: <input type="password" name="password"></p>
+    <div id="ajaxBtn">提交</div>
+  </form>
+
+  <script>
+    // 通过jquery 进行表单的提交存在页面跳转问题，return false与e.preventDefault()可以默认提交事件
+    $('#jqbtn').click(function () {
+      $('#jqueryForm').submit(function (e) {
+        console.log('submit success')
+        // return false // 阻止默认提交事件
+        // e.preventDefault() // 阻止默认提交事件
+      })
+    })
+
+    // 通过ajax请求, ajax请求req 的content-type 为application/json
+    $('#ajaxBtn').click(function () {
+      var params = {
+        name: form.username.value,
+        password: form.password.value
+      }
+      $.ajax({
+        url: 'http://localhost:3008/ajax',
+        type: 'POST',
+        data: JSON.stringify(params),
+        contentType: "application/json", // 默认以formdata形式发送给后台
+        dataType: "json",
+        success: function (res) {
+          console.log(res)
+        }
+      })
+    })
+  </script>
+</body>
+</html>
