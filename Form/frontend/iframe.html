@@ -17,7 +17,7 @@
   </form>
   <iframe name="targetIfr" style="display:none"></iframe>
   <hr>
-  <!-- 通过js 进行表单的提交 存在问题，页面会跳转刷新-->
+  <!-- 通过js 进行表单的提交存在问题，页面会跳转刷新-->
   <form action="http://localhost:3008/user" method="POST" name="form" id="jsForm">
     <p>name: <input type="text" name="username"></p>
     <p>password: <input type="password" name="password"></p>
@@ -41,7 +41,8 @@
     // }
   </script>
   <script>
-    // 策略对象
+    // 策略设计模式实现表单验证
+    // 具体策略角色 --> 策略对象
     let strategys = {
       isEmpty: (value, errorMsg) => {
         if (value === '') {
@@ -64,6 +65,7 @@
         return /^\w+([+-.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value)
       }
     }
+    // 抽象策略角色 --> Validator类
     class Validator {
       constructor() {
         this.cache = [] // 保存校验规则
@@ -74,7 +76,7 @@
           let strategyAry = rule.strategy.split(':') // minLength:6 --> ['minLength', 6]
           let errorMsg = rule.errorMsg // 用户长度不能小于6
           self.cache.push(function () {
-            let strategy = strategyAry.shift() // 
+            let strategy = strategyAry.shift() // 用户挑选的strategy
             strategyAry.unshift(dom.value) // 把表单值添加到参数列表中
             strategyAry.push(errorMsg) // 把errorMsg添加到参数列表中 --> ['表单值', 6, errorMsg]
             return strategys[strategy].apply(dom, strategyAry)
@@ -91,7 +93,7 @@
       }
     }
 
-    // 代码调用
+    // 环境角色 --> 客户端代码调用
     let form = document.getElementById("jsForm");
     let validateFunc = function () {
       let validator = new Validator(); // 实例化Validator

@@ -7,10 +7,12 @@ String.prototype.had = function(search, start) {
     if (start + search.length > this.length) {
         return false
     } else {
-        return this.indexOf(search, start) !== -1 
+        return this.indexOf(search, start) !== -1
     }
 }
 
 let a = 'abcde'
-console.log('是否包含：', a.had('cd', 1))
+console.log('是否包含：', a.had('ab', 0))
+console.log('是否包含：', a.had('ab', 1))
+console.log('是否包含：', a.had('bc', 1))
 console.log('是否包含：', a.had('ef', 1))

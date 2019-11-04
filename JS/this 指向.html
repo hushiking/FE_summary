@@ -13,8 +13,20 @@
         var name = 'fe'
         var departments = {
             name: 'dev',
+            getOne() {
+                return `${name}-${this.name}`
+            },
+            getname: () => {
+                return `${name}-${this.name}`
+            },
             getName: function () {
                 return `${name}-${this.name}`
+            },
+            pub: {
+                name: 'pub',
+                getName: function() {
+                    return `${name}-${this.name}`
+                }
             },
             pro: {
                 name: 'pro',
@@ -28,7 +40,10 @@
         var pro = departments.pro
         console.log(this)
         console.log(getName())
+        console.log(departments.getOne())
+        console.log(departments.getname())
         console.log(departments.getName())
+        console.log(departments.pub.getName())
         console.log(departments.pro.getName())
         console.log(pro.getName())
     </script>

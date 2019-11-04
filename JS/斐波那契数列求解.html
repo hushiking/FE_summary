@@ -13,9 +13,9 @@
         // 'use strict'
         var tt = (function (a) {
             this.a = a;
-            console.log(this)
+            console.log(this, this.a)
             return function (b) {
-                console.log('===', this)
+                console.log('===', this, this.a)
                 return this.a + b;
             }
         }(function (a, b) {
@@ -31,14 +31,17 @@
             }
             return fib(n - 1) + fib(n - 2);
         }
+        console.log(fib(5));
 
         function fib2(n) {
             var arr = [0, 1]
             for (var i = 2; i <= n; i++) {
                 arr[i] = arr[i - 1] + arr[i - 2];
             }
+            console.log(arr);
             return arr[n];
         }
+        console.log(fib2(5));
 
         var cache = [];
         function fib3(n) {
@@ -52,6 +55,20 @@
             cache.push(fib3(n - 1) + fib3(n - 2));
             return cache[n];
         }
+        var store = [];
+        function fib33(n) {
+            if (store[n - 1] !== undefined) {
+                return store[n - 1];
+            }
+            if (n === 1 || n === 2) {
+                store[0] = 1;
+                store[1] = 1;
+                return 1; 
+            }
+            store.push(fib33(n - 1) + fib33(n - 2));
+            return store[n - 1];
+        }
+        console.log(fib33(100))
 
         function fib4(n) {
             let arr = [0, 1];
@@ -68,6 +85,22 @@
             }
             return calc(n);
         }
+        function fib44(n) {
+            let arr = [1, 1];
+            function calc(n) {
+                if (n === 1 || n === 2) {
+                    return 1;
+                }
+                if (arr[n - 1] !== undefined) {
+                    return arr[n - 1];
+                }
+                let data = calc(n - 1) + calc(n - 2);
+                arr[n - 1] = data;
+                return data;
+            }
+            return calc(n);
+        }
+        console.log(fib44(5));
 
         // 迭代
         function fib5(n) {
@@ -81,6 +114,17 @@
             }
             return data;
         }
+        function fib55(n) {
+            let a = 1, b = 1, data;
+            if (n === 1 || n === 2) return 1;
+            for(let i = 3; i <= n; i++) {
+                data = a + b;
+                a = b;
+                b = data;
+            }
+            return data;
+        }
+        console.log(fib55(100));
     </script>
 </body>
 
