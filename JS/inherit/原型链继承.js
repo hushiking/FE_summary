@@ -20,8 +20,8 @@ SubType.prototype.getSubValue = function() {
 }
 
 var p = new SuperType()
-console.log('SubType:', SubType.sign) // 超类的静态属性无法继承
-console.log('p.getSuperValue:', p.getSuperValue())
+console.log('SubType:', SubType.sign) // undefined 超类的静态属性无法继承
+console.log('p.getSuperValue:', p.getSuperValue()) // p.getSuperValue: true
 
 var instance = new SubType()
 console.log('instance.getSuperValue:', instance.getSuperValue())
@@ -55,7 +55,7 @@ Child.prototype = new Parent()
 
 var instance1 = new Child()
 instance1.colors.push('black')
-console.log('instance1.colors:', instance1.colors)
+console.log('instance1.colors:', instance1.colors) // instance1.colors: [ 'red', 'green', 'blue', 'black' ]
 
 var instance2 = new Child()
-console.log('instance2.colors:', instance2.colors)
+console.log('instance2.colors:', instance2.colors) // instance2.colors: [ 'red', 'green', 'blue', 'black' ]

@@ -13,9 +13,9 @@ function SubType(name) {
 
 var instance1 = new SubType('小明')
 instance1.colors.push('black')
-console.log('instance1.colors:', instance1.colors, instance1.name)
+console.log('instance1.colors:', instance1.colors, instance1.name) // instance1.colors: [ 'red', 'green', 'blue', 'black' ] 小明
 
 var instance2 = new SubType('小狗')
-console.log('instance2.colors:', instance2.colors, instance2.name)
+console.log('instance2.colors:', instance2.colors, instance2.name) // instance2.colors: [ 'red', 'green', 'blue' ] 小狗
 
 // 问题：无法避免构造函数存在的问题——方法都在构造函数中定义，函数复用无从谈起！！！

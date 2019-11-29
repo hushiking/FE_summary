@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Proxy实现数据双向绑定</title>
+</head>
+<body>
+    <div id="app">
+        <h3 id="paragraph">Proxy</h3>
+        <input type="text" id="input">
+        <script>
+            // 获取段落节点
+            const paragraph = document.getElementById('paragraph');
+            // 获取输入框节点
+            const input = document.getElementById('input');
+            // 需要代理的数据对象(相当于 vue 的 data 数据对象)
+            const data = {
+                text: 'hello world'
+            }
+            const handler = {
+                // 监控 data 中的 text 属性变化
+                set: function(target, prop, value) {
+                    if (prop === 'text') {
+                        // 更新值
+                        target[prop] = value;
+                        // 更新视图
+                        paragraph.innerHTML = value;
+                        input.value = value;
+                        return true; // return 没啥实际作用,结束函数执行
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            // 添加 input 监听事件
+            input.addEventListener('input', function(e) {
+                myText.text = e.target.value; // 更新 myText 的值
+            }, false)
+            // 构造 proxy 对象
+            const myText = new Proxy(data, handler);
+            // 初始化值
+            myText.text = data.text;
+        </script>
+    </div>
+</body>
+</html>
