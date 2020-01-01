@@ -3,7 +3,7 @@ console.log('===', i);
 
 [...Array(7).keys()].map(days =>new Date(Date.now() - 86400000 * days))
 
-var q = {}; function aa(_, k, v){return q[k] = v};aa('bb', 'wang', 2)
+var q = {}; function aa(_, k, v){return q[k] = v};console.log(aa('bb', 'wang', 2));console.log(q)
 
 function arr(arr) {
   return arr.slice().sort(() => Math.random() - .5)

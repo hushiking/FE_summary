@@ -12,8 +12,8 @@ const p1 = {
   age: 25
 }
 const p2 = test(p1)
-console.log(p1) // -> ?
-console.log(p2) // -> ?
+console.log(p1) // -> ? { name: 'yck', age: 26 }
+console.log(p2) // -> ? { name: 'yyy', age: 30 }
 
 // 缓存代理实现乘积运算
 const mult = function () {
